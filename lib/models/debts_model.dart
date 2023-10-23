@@ -9,7 +9,7 @@ class Debts {
   });
   factory Debts.fromJson(Map<String, dynamic> json) {
     return Debts(
-      price: json['amount'],
+      price: json['amount'].round(),
       user: User.fromjson(json['to']),
     );
   }

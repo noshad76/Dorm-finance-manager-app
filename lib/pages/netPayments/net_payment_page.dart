@@ -318,6 +318,16 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     Text(
+                                                      ' تومان ',
+                                                      style: TextStyle(
+                                                          fontFamily: 'vazir',
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize:
+                                                              width * 0.045),
+                                                    ),
+                                                    Text(
                                                       value2.formatAmount(value
                                                           .allDebts[index]!
                                                           .price
@@ -410,6 +420,8 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                                 ),
                                                 ElevatedButton(
                                                   onPressed: () {
+                                                    debugPrint(
+                                                        "Clicked on : ${value.allDebts[index]!.user.username}");
                                                     customNetPaymentDialog(
                                                         context, height, width);
                                                   },
