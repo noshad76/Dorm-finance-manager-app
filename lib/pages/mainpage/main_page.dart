@@ -149,10 +149,13 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                            onTap: () {
-                              value.changeSectionIndex(2);
-                              MainPageMethods.totalsBottomSheet(context, value);
-                            },
+                            onTap: value.allPayemnts.isEmpty
+                                ? () {}
+                                : () {
+                                    value.changeSectionIndex(2);
+                                    MainPageMethods.totalsBottomSheet(
+                                        context, value);
+                                  },
                             child: SizedBox(
                               height: height * 0.05,
                               child: const Sections(

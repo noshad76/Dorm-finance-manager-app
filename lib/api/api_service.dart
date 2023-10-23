@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:expense_app/constants/base_url.dart';
 import 'package:expense_app/database/app_database.dart';
 import 'package:expense_app/models/debts_model.dart';
 import 'package:expense_app/models/payment_model.dart';
@@ -16,13 +17,12 @@ final dio = Dio(
   ),
 );
 Future<bool> sendPayment(Payment payment) async {
-  Response resp =
-      await dio.post('https://dorm-finance-manager.vercel.app/new-payment',
-          data: payment.tojson(),
-          options: Options(headers: {
-            "APP-X-TOKEN": await TokenBox.getToken(),
-            HttpHeaders.contentTypeHeader: "application/json",
-          }));
+  Response resp = await dio.post('$baseUrl/new-payment',
+      data: payment.tojson(),
+      options: Options(headers: {
+        "APP-X-TOKEN": await TokenBox.getToken(),
+        HttpHeaders.contentTypeHeader: "application/json",
+      }));
 
   Map<String, dynamic> json = jsonDecode(resp.toString());
   debugPrint(json.toString());
@@ -31,8 +31,7 @@ Future<bool> sendPayment(Payment payment) async {
 }
 
 Future<bool> login(String username, String password) async {
-  Response resp = await dio.post(
-      'https://dorm-finance-manager.vercel.app/login',
+  Response resp = await dio.post('$baseUrl/login',
       data: {'username': username, 'password': password},
       options: Options(
           headers: {HttpHeaders.contentTypeHeader: "application/json"}));
@@ -48,7 +47,7 @@ Future<bool> login(String username, String password) async {
 }
 
 Future<User?> requestLoginStatus(String token) async {
-  Response resp = await dio.get('https://dorm-finance-manager.vercel.app/me',
+  Response resp = await dio.get('$baseUrl/me',
       options: Options(headers: {
         HttpHeaders.contentTypeHeader: "application/json",
         'APP-X-TOKEN': token,
@@ -65,7 +64,7 @@ Future<User?> requestLoginStatus(String token) async {
 
 Future<List<User?>> getContacts(String token) async {
   Response resp = await dio.get(
-    'https://dorm-finance-manager.vercel.app/list-users',
+    '$baseUrl/list-users',
     options: Options(
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
@@ -86,7 +85,7 @@ Future<List<User?>> getContacts(String token) async {
 
 Future<List<Payment?>> getPayments(String? token) async {
   Response resp = await dio.get(
-    'https://dorm-finance-manager.vercel.app/my-payments',
+    '$baseUrl/my-payments',
     options: Options(
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
@@ -106,7 +105,7 @@ Future<List<Payment?>> getPayments(String? token) async {
 
 Future<List<Payment?>> getAllPayments(String? token) async {
   Response resp = await dio.get(
-    'https://dorm-finance-manager.vercel.app/all-payments',
+    '$baseUrl/all-payments',
     options: Options(
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
@@ -126,7 +125,7 @@ Future<List<Payment?>> getAllPayments(String? token) async {
 
 Future<List<Debts?>> getAllDebts(String? token) async {
   Response resp = await dio.get(
-    'https://dorm-finance-manager.vercel.app/my-debts',
+    '$baseUrl/my-debts',
     options: Options(
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",

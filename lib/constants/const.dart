@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Constant {
+
   static const Color loginBackground1 = Color(0xFF191347);
   static const Color loginTextField = Color(0xFF2b2a66);
   static const Color loginbutton = Color(0xFF8168F7);

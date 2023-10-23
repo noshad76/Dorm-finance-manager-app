@@ -270,7 +270,12 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                     children: [
                                       LottieBuilder.asset(
                                           'assets/animations/empty_placeholder.json'),
-                                      const Text('ایتمی برای پرداخت نداریم')
+                                      Text('!آیتمی برای پرداخت نداریم',
+                                          style: TextStyle(
+                                              fontFamily: 'vazir',
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: width * 0.045))
                                     ],
                                   )
                                 : ListView.separated(
@@ -343,13 +348,10 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      value
-                                                          .formatCreditCardNumber(
-                                                              value
-                                                                  .allDebts[
-                                                                      index]!
-                                                                  .user
-                                                                  .cardNumber),
+                                                      value.formatCreditCardNumber(
+                                                          // value.allDebts[index]!
+                                                          //     .user.cardNumber,
+                                                          '6037997529573256'),
                                                       style: GoogleFonts.inter(
                                                           color: Colors.white,
                                                           fontSize:

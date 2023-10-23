@@ -3,6 +3,7 @@ import 'package:expense_app/pages/mainpage/widgets/payment_notification.dart';
 import 'package:expense_app/state/main_page_providor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class CustomLeftDrawer extends StatefulWidget {
@@ -22,6 +23,7 @@ class CustomLeftDrawer extends StatefulWidget {
 class _CustomLeftDrawerState extends State<CustomLeftDrawer> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Consumer<MainPageProvider>(
       builder: (context, value, child) {
         return SizedBox(
@@ -62,21 +64,39 @@ class _CustomLeftDrawerState extends State<CustomLeftDrawer> {
                   ),
                   SizedBox(
                     height: widget.height * 0.80,
-                    child: ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      separatorBuilder: (context, index) {
-                        return SizedBox(
-                          height: widget.width * 0.02,
-                        );
-                      },
-                      itemBuilder: (context, index) {
-                        return PaymentNotification(
-                          index: index,
-                          payment: value.notificationPayemnts[index]!,
-                        );
-                      },
-                      itemCount: value.notificationPayemnts.length,
-                    ),
+                    child: value.notificationPayemnts.isEmpty
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: width,
+                                child: LottieBuilder.asset(
+                                  'assets/animations/empty_placeholder.json',
+                                ),
+                              ),
+                              Text('!آیتمی برای نمایش وجود ندارد',
+                                  style: TextStyle(
+                                      fontFamily: 'vazir',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: width * 0.045))
+                            ],
+                          )
+                        : ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            separatorBuilder: (context, index) {
+                              return SizedBox(
+                                height: widget.width * 0.02,
+                              );
+                            },
+                            itemBuilder: (context, index) {
+                              return PaymentNotification(
+                                index: index,
+                                payment: value.notificationPayemnts[index]!,
+                              );
+                            },
+                            itemCount: value.notificationPayemnts.length,
+                          ),
                   ),
                 ],
               ),
