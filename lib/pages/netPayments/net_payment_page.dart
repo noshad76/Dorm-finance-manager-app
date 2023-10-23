@@ -30,10 +30,10 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
 
   @override
   void initState() {
-    try {
-      Future.delayed(
-        Duration.zero,
-        () async {
+    Future.delayed(
+      Duration.zero,
+      () async {
+        try {
           Provider.of<NetPaymentPageProvider>(context, listen: false)
               .changeNetPaymentPageHaseExeptionToFalse();
           Provider.of<NetPaymentPageProvider>(context, listen: false)
@@ -44,20 +44,20 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
             Provider.of<NetPaymentPageProvider>(context, listen: false)
                 .changeNetPaymentisPullToRefreshToFalse();
           }
-        },
-      );
-    } on Exception catch (_) {
-      refreshController.refreshFailed();
-      Provider.of<NetPaymentPageProvider>(context, listen: false)
-          .changeNetPaymentPageHaseExeptionToTrue();
+        } catch (e) {
+          refreshController.refreshFailed();
+          Provider.of<NetPaymentPageProvider>(context, listen: false)
+              .changeNetPaymentPageHaseExeptionToTrue();
 
-      showTopSnackBar(
-        Overlay.of(context),
-        const CustomSnackBar.error(
-          message: "اینترنت خود را بررسی کنید",
-        ),
-      );
-    }
+          showTopSnackBar(
+            Overlay.of(context),
+            const CustomSnackBar.error(
+              message: "اینترنت خود را بررسی کنید",
+            ),
+          );
+        }
+      },
+    );
 
     super.initState();
   }
