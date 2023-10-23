@@ -46,15 +46,17 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
           }
         } catch (e) {
           refreshController.refreshFailed();
-          Provider.of<NetPaymentPageProvider>(context, listen: false)
-              .changeNetPaymentPageHaseExeptionToTrue();
+          if (mounted) {
+            Provider.of<NetPaymentPageProvider>(context, listen: false)
+                .changeNetPaymentPageHaseExeptionToTrue();
 
-          showTopSnackBar(
-            Overlay.of(context),
-            const CustomSnackBar.error(
-              message: "اینترنت خود را بررسی کنید",
-            ),
-          );
+            showTopSnackBar(
+              Overlay.of(context),
+              const CustomSnackBar.error(
+                message: "اینترنت خود را بررسی کنید",
+              ),
+            );
+          }
         }
       },
     );
