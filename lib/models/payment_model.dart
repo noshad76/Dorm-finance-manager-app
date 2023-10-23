@@ -21,7 +21,7 @@ class Payment {
       'date': date,
       'price': price,
       'description': description,
-      'users': users
+      'users': (users.map((e) => e.id).toList())
     };
   }
 

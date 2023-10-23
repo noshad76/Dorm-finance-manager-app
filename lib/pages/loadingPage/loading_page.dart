@@ -35,7 +35,8 @@ class _LoadingPageState extends State<LoadingPage> {
     TokenBox.getToken().then(
       (value) {
         token = value;
-        if (token == null) {
+        print(token);
+        if (token == null || token!.isEmpty) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) {
@@ -63,7 +64,7 @@ class _LoadingPageState extends State<LoadingPage> {
                       userid: user!.id);
               await Provider.of<MainPageProvider>(context, listen: false)
                   .refresh();
-              if (!context.mounted)return;
+              if (!context.mounted) return;
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) {

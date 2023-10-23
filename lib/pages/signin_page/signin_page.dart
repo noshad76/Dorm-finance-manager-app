@@ -194,11 +194,12 @@ class LoginButton extends StatelessWidget {
                     mainpageprovider.changeisLoadinglogin();
                     String? token = await TokenBox.getToken();
                     User? user = await requestLoginStatus(token!);
+                    debugPrint(user!.name);
                     if (!context.mounted) return;
 
                     Provider.of<MainPageProvider>(context, listen: false)
                         .setMainUserData(
-                            userName: user!.name,
+                            userName: user.name,
                             pictureUrl: user.picture,
                             userid: user.id);
 
