@@ -538,7 +538,7 @@ class MainPageMethods {
     );
   }
 
-  static Widget appbar(GlobalKey<ScaffoldState> key) {
+  static Widget appbar( void Function()? onTap) {
     return Consumer<MainPageProvider>(
       builder: (context, value, child) {
         double width = MediaQuery.of(context).size.width;
@@ -574,9 +574,7 @@ class MainPageMethods {
                 color: Colors.transparent,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(width * 0.1),
-                  onTap: () {
-                    key.currentState!.openEndDrawer();
-                  },
+                  onTap:onTap
                 ),
               ),
             )

@@ -45,4 +45,16 @@ class NetPaymentPageProvider extends ChangeNotifier {
 
     return formattedNumber;
   }
+
+  bool isNetPaymentPageHaseExeption = false;
+  void changeNetPaymentPageHaseExeptionToTrue() {
+    isNetPaymentPageHaseExeption = true;
+    notifyListeners();
+  }
+
+  void changeNetPaymentPageHaseExeptionToFalse() {
+    isNetPaymentPageHaseExeption = false;
+    debugPrint('is net payment caled $isNetPaymentPageHaseExeption');
+    notifyListeners();
+  }
 }

@@ -161,6 +161,16 @@ class MainPageProvider extends ChangeNotifier {
     }
   }
 
+  bool isMainPageHaseExeption = false;
+  void changeMainPageHaseExeptionToTrue() {
+    isMainPageHaseExeption = true;
+    notifyListeners();
+  }
+
+  void changeMainPageHaseExeptionToFalse() {
+    isMainPageHaseExeption = false;
+    notifyListeners();
+  }
 
   String formatAmount(String price) {
     String priceInText = "";

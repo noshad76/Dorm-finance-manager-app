@@ -35,18 +35,32 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    Future.delayed(
-      Duration.zero,
-      () async {
-        Provider.of<MainPageProvider>(context, listen: false)
-            .changeMainPageisPullToRefreshToTrue();
-        await Provider.of<MainPageProvider>(context, listen: false).refresh();
-        if (!context.mounted) return;
+    try {
+      Future.delayed(
+        Duration.zero,
+        () async {
+          Provider.of<MainPageProvider>(context, listen: false)
+              .changeMainPageHaseExeptionToTrue();
+          Provider.of<MainPageProvider>(context, listen: false)
+              .changeMainPageisPullToRefreshToTrue();
+          await Provider.of<MainPageProvider>(context, listen: false).refresh();
+          if (!context.mounted) return;
 
-        Provider.of<MainPageProvider>(context, listen: false)
-            .changeMainPageisPullToRefreshToFalse();
-      },
-    );
+          Provider.of<MainPageProvider>(context, listen: false)
+              .changeMainPageisPullToRefreshToFalse();
+        },
+      );
+    } on Exception catch (_) {
+      Provider.of<MainPageProvider>(context, listen: false)
+          .changeMainPageHaseExeptionToTrue();
+      showTopSnackBar(
+        Overlay.of(context),
+        const CustomSnackBar.error(
+          message: "اینترنت خود را بررسی کنید",
+        ),
+      );
+    }
+
     super.initState();
   }
 
@@ -71,6 +85,7 @@ class _MainPageState extends State<MainPage> {
                 controller: refreshController,
                 onRefresh: () async {
                   try {
+                    value.changeMainPageHaseExeptionToTrue();
                     Provider.of<MainPageProvider>(context, listen: false)
                         .changeMainPageisPullToRefreshToTrue();
                     await Provider.of<MainPageProvider>(context, listen: false)
@@ -81,6 +96,7 @@ class _MainPageState extends State<MainPage> {
                         .changeMainPageisPullToRefreshToFalse();
                   } on Exception catch (_) {
                     refreshController.refreshFailed();
+                    value.changeMainPageHaseExeptionToFalse();
                     showTopSnackBar(
                       Overlay.of(context),
                       const CustomSnackBar.error(
@@ -102,9 +118,12 @@ class _MainPageState extends State<MainPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                              onTap: () {
-                                _key.currentState!.openDrawer();
-                              },
+                              onTap: !value.isMainPageHaseExeption ||
+                                      value.isMainPagePullToRefresh
+                                  ? () {}
+                                  : () {
+                                      _key.currentState!.openDrawer();
+                                    },
                               borderRadius:
                                   BorderRadius.circular(width * 0.025),
                               child: SvgPicture.asset(
@@ -112,7 +131,14 @@ class _MainPageState extends State<MainPage> {
                                 height: width * 0.07,
                                 width: width * 0.07,
                               )),
-                          MainPageMethods.appbar(_key),
+                          MainPageMethods.appbar(
+                            !value.isMainPageHaseExeption ||
+                                    value.isMainPagePullToRefresh
+                                ? () {}
+                                : () {
+                                    _key.currentState!.openEndDrawer();
+                                  },
+                          ),
                         ],
                       ),
                     ),
@@ -149,7 +175,9 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                            onTap: value.allPayemnts.isEmpty
+                            onTap: value.allPayemnts.isEmpty ||
+                                    !value.isMainPageHaseExeption ||
+                                    value.isMainPagePullToRefresh
                                 ? () {}
                                 : () {
                                     value.changeSectionIndex(2);
@@ -196,38 +224,49 @@ class _MainPageState extends State<MainPage> {
                       height: height * 0.525,
                       child: Column(
                         children: [
-                          value.isMainPagePullToRefresh
-                              ? MainPageShimmer(height: height, width: width)
-                              : value.allPayemnts.isEmpty
-                                  ? SizedBox(
-                                      height: 300,
-                                      width: 400,
-                                      child: LottieBuilder.asset(
-                                          'assets/animations/empty_placeholder.json'),
-                                    )
-                                  : SizedBox(
-                                      height: height * 0.4,
-                                      child: ListView.separated(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        separatorBuilder: (context, index) {
-                                          return SizedBox(
-                                            height: height * 0.006,
-                                          );
-                                        },
-                                        itemCount: value.allPayemnts.length > 4
-                                            ? 4
-                                            : value.allPayemnts.length,
-                                        itemBuilder: (context, index) {
-                                          return PaymentItem(
-                                            payment: value.allPayemnts[index]!,
-                                            backgroundImage: const AssetImage(
-                                                'assets/images/1.jpg'),
-                                            index: index,
-                                          );
-                                        },
-                                      ),
-                                    ),
+                          !value.isMainPageHaseExeption
+                              ? SizedBox(
+                                  width: width,
+                                  height: height * 0.4,
+                                  child: LottieBuilder.asset(
+                                      'assets/animations/conection_lost.json'),
+                                )
+                              : value.isMainPagePullToRefresh
+                                  ? MainPageShimmer(
+                                      height: height, width: width)
+                                  : value.allPayemnts.isEmpty
+                                      ? SizedBox(
+                                          height: 300,
+                                          width: 400,
+                                          child: LottieBuilder.asset(
+                                              'assets/animations/empty_placeholder.json'),
+                                        )
+                                      : SizedBox(
+                                          height: height * 0.4,
+                                          child: ListView.separated(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            separatorBuilder: (context, index) {
+                                              return SizedBox(
+                                                height: height * 0.006,
+                                              );
+                                            },
+                                            itemCount:
+                                                value.allPayemnts.length > 4
+                                                    ? 4
+                                                    : value.allPayemnts.length,
+                                            itemBuilder: (context, index) {
+                                              return PaymentItem(
+                                                payment:
+                                                    value.allPayemnts[index]!,
+                                                backgroundImage:
+                                                    const AssetImage(
+                                                        'assets/images/1.jpg'),
+                                                index: index,
+                                              );
+                                            },
+                                          ),
+                                        ),
                           CustomMainElevatedButton(
                             onpressed: () async {
                               await MainPageMethods.customshowModalBottomSheet(
