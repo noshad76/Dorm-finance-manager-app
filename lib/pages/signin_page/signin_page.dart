@@ -194,22 +194,29 @@ class LoginButton extends StatelessWidget {
                     mainpageprovider.changeisLoadinglogin();
                     String? token = await TokenBox.getToken();
                     User? user = await requestLoginStatus(token!);
-                    debugPrint(user!.name);
                     if (!context.mounted) return;
+                    if (user == null) {
+                      showTopSnackBar(
+                        Overlay.of(context),
+                        const CustomSnackBar.error(
+                          message: "مشکل در اتصال به سرور",
+                        ),
+                      );
+                    } else {
+                      Provider.of<MainPageProvider>(context, listen: false)
+                          .setMainUserData(
+                              userName: user.name,
+                              pictureUrl: user.picture,
+                              userid: user.id);
 
-                    Provider.of<MainPageProvider>(context, listen: false)
-                        .setMainUserData(
-                            userName: user.name,
-                            pictureUrl: user.picture,
-                            userid: user.id);
-
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const MainPage();
-                        },
-                      ),
-                    );
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const MainPage();
+                          },
+                        ),
+                      );
+                    }
                   } else {
                     if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(

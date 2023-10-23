@@ -57,7 +57,7 @@ Future<User?> requestLoginStatus(String token) async {
   debugPrint(json.toString());
 
   if (json['ok'] == true) {
-    return User.fromjson(json);
+    return User.fromjson(json['user']);
   }
   return null;
 }

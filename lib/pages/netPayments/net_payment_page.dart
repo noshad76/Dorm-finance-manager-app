@@ -5,6 +5,7 @@ import 'package:expense_app/pages/mainpage/widgets/main_page_methods.dart';
 import 'package:expense_app/state/main_page_providor.dart';
 import 'package:expense_app/state/net_payment_page_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -348,10 +349,11 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      value.formatCreditCardNumber(
-                                                          // value.allDebts[index]!
-                                                          //     .user.cardNumber,
-                                                          '6037997529573256'),
+                                                      value
+                                                          .formatCreditCardNumber(
+                                                        value.allDebts[index]!
+                                                            .user.cardNumber,
+                                                      ),
                                                       style: GoogleFonts.inter(
                                                           color: Colors.white,
                                                           fontSize:
@@ -366,6 +368,13 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                                       ),
                                                       splashRadius: 1,
                                                       onPressed: () {
+                                                        Clipboard.setData(
+                                                            ClipboardData(
+                                                                text: value
+                                                                    .allDebts[
+                                                                        index]!
+                                                                    .user
+                                                                    .cardNumber));
                                                         ScaffoldMessenger.of(
                                                                 context)
                                                             .showSnackBar(
@@ -444,7 +453,7 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                         height: height * 0.015,
                                       );
                                     },
-                                    itemCount: 5),
+                                    itemCount: value.allDebts.length),
                       )
                     ],
                   ),
