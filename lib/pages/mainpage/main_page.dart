@@ -35,10 +35,10 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    try {
-      Future.delayed(
-        Duration.zero,
-        () async {
+    Future.delayed(
+      Duration.zero,
+      () async {
+        try {
           Provider.of<MainPageProvider>(context, listen: false)
               .changeMainPageHaseExeptionToTrue();
           Provider.of<MainPageProvider>(context, listen: false)
@@ -48,18 +48,19 @@ class _MainPageState extends State<MainPage> {
 
           Provider.of<MainPageProvider>(context, listen: false)
               .changeMainPageisPullToRefreshToFalse();
-        },
-      );
-    } on Exception catch (_) {
-      Provider.of<MainPageProvider>(context, listen: false)
-          .changeMainPageHaseExeptionToFalse();
-      showTopSnackBar(
-        Overlay.of(context),
-        const CustomSnackBar.error(
-          message: "اینترنت خود را بررسی کنید",
-        ),
-      );
-    }
+        } catch (e) {
+          refreshController.refreshFailed();
+          Provider.of<MainPageProvider>(context, listen: false)
+              .changeMainPageHaseExeptionToFalse();
+          showTopSnackBar(
+            Overlay.of(context),
+            const CustomSnackBar.error(
+              message: "اینترنت خود را بررسی کنید",
+            ),
+          );
+        }
+      },
+    );
 
     super.initState();
   }
@@ -268,12 +269,15 @@ class _MainPageState extends State<MainPage> {
                                           ),
                                         ),
                           CustomMainElevatedButton(
-                            onpressed: () async {
-                              await MainPageMethods.customshowModalBottomSheet(
-                                  context);
-                              value.resetPaymentValues();
-                              value.changeisLoadingAddPaymentnTofalse();
-                            },
+                            onpressed: !value.isMainPageHaseExeption ||
+                                    value.isMainPagePullToRefresh
+                                ? () {}
+                                : () async {
+                                    await MainPageMethods
+                                        .customshowModalBottomSheet(context);
+                                    value.resetPaymentValues();
+                                    value.changeisLoadingAddPaymentnTofalse();
+                                  },
                           )
                         ],
                       ),

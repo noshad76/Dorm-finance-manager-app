@@ -133,43 +133,7 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                 borderRadius:
                                     BorderRadius.circular(width * 0.025),
                                 child: IconButton(
-                                    onPressed: () {
-                                      try {
-                                        Future.delayed(
-                                          Duration.zero,
-                                          () async {
-                                            Provider.of<MainPageProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .changeMainPageHaseExeptionToTrue();
-                                            Provider.of<MainPageProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .changeMainPageisPullToRefreshToTrue();
-                                            await Provider.of<MainPageProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .refresh();
-                                            if (!context.mounted) return;
-
-                                            Provider.of<MainPageProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .changeMainPageisPullToRefreshToFalse();
-                                          },
-                                        );
-                                      } on Exception catch (_) {
-                                        Provider.of<MainPageProvider>(context,
-                                                listen: false)
-                                            .changeMainPageHaseExeptionToTrue();
-                                        showTopSnackBar(
-                                          Overlay.of(context),
-                                          const CustomSnackBar.error(
-                                            message:
-                                                "اینترنت خود را بررسی کنید",
-                                          ),
-                                        );
-                                      }
+                                    onPressed: () async {
                                       Navigator.pushReplacement(context,
                                           MaterialPageRoute(
                                         builder: (context) {
