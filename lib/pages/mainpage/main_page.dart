@@ -52,7 +52,7 @@ class _MainPageState extends State<MainPage> {
       );
     } on Exception catch (_) {
       Provider.of<MainPageProvider>(context, listen: false)
-          .changeMainPageHaseExeptionToTrue();
+          .changeMainPageHaseExeptionToFalse();
       showTopSnackBar(
         Overlay.of(context),
         const CustomSnackBar.error(
