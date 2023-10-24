@@ -1,10 +1,10 @@
-
 import 'package:expense_app/api/api_service.dart';
 import 'package:expense_app/database/app_database.dart';
 import 'package:expense_app/models/payment_model.dart';
 import 'package:expense_app/models/totals_model.dart';
 import 'package:expense_app/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 class MainPageProvider extends ChangeNotifier {
   int secetionIndex = 1;
@@ -205,5 +205,11 @@ class MainPageProvider extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  String dateFormatter(Date d) {
+    final f = d.formatter;
+
+    return '${f.wN} ${f.d} ${f.mN}';
   }
 }

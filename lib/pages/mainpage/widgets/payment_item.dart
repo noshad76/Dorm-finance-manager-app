@@ -4,6 +4,7 @@ import 'package:expense_app/state/main_page_providor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 class PaymentItem extends StatelessWidget {
   final int index;
@@ -126,7 +127,10 @@ class PaymentItem extends StatelessWidget {
                                   height: height * 0.005,
                                 ),
                                 Text(
-                                  'دوشنبه 18 آبان',
+                                  value.dateFormatter(Jalali.fromDateTime(
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                          value.allPayemnts[index]!.date *
+                                              1000))),
                                   style: TextStyle(
                                       fontFamily: 'vazir',
                                       color: Colors.white38,

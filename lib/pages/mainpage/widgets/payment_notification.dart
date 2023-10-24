@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 class PaymentNotification extends StatelessWidget {
   final int index;
@@ -121,7 +122,11 @@ class PaymentNotification extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  'دوشنبه 18 آبان',
+                                  value.dateFormatter(Jalali.fromDateTime(
+                                      DateTime.fromMillisecondsSinceEpoch(value
+                                              .notificationPayemnts[index]!
+                                              .date *
+                                          1000))),
                                   style: TextStyle(
                                       fontFamily: 'vazir',
                                       color: Colors.white38,
