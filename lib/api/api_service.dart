@@ -159,3 +159,15 @@ Future<TotalsModel?> getTotals(String? token) async {
   }
   return null;
 }
+
+Future<bool> payDebt(String? token, int id) async {
+  Response resp = await dio.post('$baseUrl/i-paied',
+      data: Debts.toJson(id),
+      options: Options(headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+        'APP-X-TOKEN': token,
+      }));
+  Map<String, dynamic> json = jsonDecode(resp.toString());
+  debugPrint(json.toString());
+  return json['ok'];
+}

@@ -485,7 +485,8 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                                         await customNetPaymentDialog(
                                                             context,
                                                             height,
-                                                            width);
+                                                            width,
+                                                            index);
                                                       },
                                                       style: ButtonStyle(
                                                         backgroundColor:
@@ -543,7 +544,7 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
   }
 
   Future<dynamic> customNetPaymentDialog(
-      BuildContext context, double height, double width) {
+      BuildContext context, double height, double width, int index) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -576,23 +577,40 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                               : () async {
                                   try {
                                     value.changeisLoadingPayNetPaymentToTrue();
-                                    await value.payNetPayment();
-                                    value.changeisLoadingPayNetPaymentTofalse();
-                                    if (!context.mounted) return;
-                                    Navigator.of(context).pop();
-                                    showTopSnackBar(
-                                      Overlay.of(context),
-                                      const CustomSnackBar.success(
-                                        message: "پرداخت با موفقیت انجام شد",
-                                      ),
-                                    );
-                                    refreshController.requestRefresh();
+                                    bool isPaySuccessful =
+                                        await value.payNetPayment(
+                                            value.allDebts[index]!.user.id);
+                                    if (isPaySuccessful) {
+                                      value
+                                          .changeisLoadingPayNetPaymentTofalse();
+                                      if (!context.mounted) return;
+                                      Navigator.of(context).pop();
+                                      showTopSnackBar(
+                                        Overlay.of(context),
+                                        const CustomSnackBar.success(
+                                          message: "پرداخت با موفقیت انجام شد",
+                                        ),
+                                      );
+                                      refreshController.requestRefresh();
+                                    } else {
+                                      value
+                                          .changeisLoadingPayNetPaymentTofalse();
+                                      if (!context.mounted) return;
+                                      Navigator.of(context).pop();
+                                      showTopSnackBar(
+                                        Overlay.of(context),
+                                        const CustomSnackBar.error(
+                                          message: "پرداخت با مشکل مواجه شد",
+                                        ),
+                                      );
+                                      refreshController.requestRefresh();
+                                    }
                                   } catch (e) {
                                     Navigator.of(context).pop();
                                     showTopSnackBar(
                                       Overlay.of(context),
                                       const CustomSnackBar.error(
-                                        message: "پرداخت با مشکل مواجه شد",
+                                        message: "مشگل در ارتباط با سرور",
                                       ),
                                     );
                                   }

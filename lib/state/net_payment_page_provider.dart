@@ -32,13 +32,8 @@ class NetPaymentPageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  payNetPayment() async {
-    await Future.delayed(
-      const Duration(seconds: 2),
-      () {
-        throw 'asd';
-      },
-    );
+  Future<bool> payNetPayment(int id) async {
+    return await payDebt(await TokenBox.getToken(), id);
   }
 
   String formatCreditCardNumber(String input) {
