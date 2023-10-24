@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:expense_app/constants/const.dart';
 import 'package:expense_app/pages/mainpage/main_page.dart';
-import 'package:expense_app/pages/mainpage/widgets/drawers/custom_right_drawer.dart';
 import 'package:expense_app/state/main_page_providor.dart';
 import 'package:expense_app/state/net_payment_page_provider.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +68,6 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       key: _key,
-      endDrawer: CustomRightDrawer(height: height, width: width),
       resizeToAvoidBottomInset: false,
       backgroundColor: Constant.loginBackground1,
       body: WillPopScope(
@@ -77,7 +75,7 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
           Provider.of<MainPageProvider>(context).changeMenuIndex(0);
           Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) {
-              return MainPage();
+              return const MainPage();
             },
           ));
           return true;
