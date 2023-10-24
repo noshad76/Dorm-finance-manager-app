@@ -48,8 +48,7 @@ class _MainPageState extends State<MainPage> {
           Provider.of<MainPageProvider>(context, listen: false)
               .changeMainPageisPullToRefreshToFalse();
         } catch (e) {
-          refreshController
-              .refreshFailed();
+          refreshController.refreshFailed();
           Provider.of<MainPageProvider>(context, listen: false)
               .changeMainPageHaseExeptionToFalse();
           showTopSnackBar(
@@ -154,7 +153,7 @@ class _MainPageState extends State<MainPage> {
                             'assets/icons/🦆 icon _money send_.svg',
                             height: height * 0.045,
                           ),
-                          price: value.totalsModel!.totalPaied.toString(),
+                          price: value.totalsModel!.totalPeceived.toString(),
                           text: 'کلیه بدهی ها',
                         ),
                         SizedBox(
@@ -164,7 +163,7 @@ class _MainPageState extends State<MainPage> {
                           icon: SvgPicture.asset(
                               'assets/icons/🦆 icon _money resive_.svg',
                               height: height * 0.04),
-                          price: value.totalsModel!.totalPeceived.toString(),
+                          price: value.totalsModel!.totalPaied.toString(),
                           text: 'کلیه خرج ها',
                         ),
                       ],
@@ -274,7 +273,8 @@ class _MainPageState extends State<MainPage> {
                                 ? () {}
                                 : () async {
                                     await MainPageMethods
-                                        .customshowModalBottomSheet(context,refreshController);
+                                        .customshowModalBottomSheet(
+                                            context, refreshController);
                                     value.resetPaymentValues();
                                     value.changeisLoadingAddPaymentnTofalse();
                                   },
