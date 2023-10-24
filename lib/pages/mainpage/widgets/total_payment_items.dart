@@ -117,10 +117,9 @@ class TotalsPaymentItems extends StatelessWidget {
                           height: height * 0.005,
                         ),
                         Text(
-                           value.dateFormatter(Jalali.fromDateTime(
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          value.allPayemnts[index]!.date *
-                                              1000))),
+                          value.dateFormatter(Jalali.fromDateTime(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  value.allPayemnts[index]!.date * 1000))),
                           style: TextStyle(
                               fontFamily: 'vazir',
                               color: Colors.white38,
@@ -128,10 +127,12 @@ class TotalsPaymentItems extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
-                          width: 150,
+                          width: width * 0.35,
                           child: Text(
-                            "پرداخت به ${payment.createdBy!.name}\n${payment.description.length > 20 ? '${payment.description.substring(0, 20)} ...' : payment.description}",
+                            'پرداخت به ${payment.createdBy!.name}\n${payment.description}',
                             textDirection: TextDirection.rtl,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontFamily: 'vazir',
                                 height: width * 0.003,
