@@ -108,7 +108,8 @@ class CustomRightDrawer extends StatelessWidget {
                           onTap: () {
                             if (value.menuIndex != 1) {
                               value.changeMenuIndex(1);
-                              Navigator.push(context, MaterialPageRoute(
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(
                                 builder: (context) {
                                   return const NetPaymentsPage();
                                 },

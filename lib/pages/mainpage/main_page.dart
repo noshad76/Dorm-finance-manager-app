@@ -158,7 +158,8 @@ class _MainPageState extends State<MainPage> {
                             height: height * 0.045,
                           ),
                           price: value.formatAmount(
-                              value.totalsModel!.totalPeceived.toString()),
+                              value.totalsModel?.totalPeceived.toString() ??
+                                  '0'),
                           text: 'کلیه بدهی ها',
                         ),
                         SizedBox(
@@ -169,7 +170,7 @@ class _MainPageState extends State<MainPage> {
                               'assets/icons/🦆 icon _money resive_.svg',
                               height: height * 0.04),
                           price: value.formatAmount(
-                              value.totalsModel!.totalPaied.toString()),
+                              value.totalsModel?.totalPaied.toString() ?? '0'),
                           text: 'کلیه خرج ها',
                         ),
                       ],
