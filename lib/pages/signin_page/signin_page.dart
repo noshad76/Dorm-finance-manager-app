@@ -96,7 +96,7 @@ class _SignInState extends State<SignIn> {
                                 ],
                               ),
                               child: SvgPicture.asset(
-                                r'assets/icons/🦆 icon _shopping cart_.svg',
+                                r'assets/icons/Dormnance icon.svg',
                                 height: width * 0.38,
                                 colorFilter: const ColorFilter.mode(
                                     Constant.cartIcon, BlendMode.srcIn),

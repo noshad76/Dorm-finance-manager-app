@@ -6,6 +6,7 @@ import 'package:expense_app/pages/mainpage/main_page.dart';
 import 'package:expense_app/pages/signin_page/signin_page.dart';
 import 'package:expense_app/state/main_page_providor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -109,11 +110,25 @@ class _LoadingPageState extends State<LoadingPage> {
       body: Center(
         child: (isInprogress || isInternetConected)
             ? SizedBox(
-                height: width * 0.35,
-                width: width * 0.35,
-                child: const CircularProgressIndicator(
-                  color: Colors.white,
-                ),
+                height: height,
+                width: width * 0.5,
+                child: Column(children: [
+                  SizedBox(
+                    height: height * 0.350,
+                  ),
+                  SvgPicture.asset(
+                    r'assets/icons/Dormnance icon.svg',
+                    height: width * 0.4,
+                    colorFilter: const ColorFilter.mode(
+                        Constant.cartIcon, BlendMode.srcIn),
+                  ),
+                  SizedBox(
+                    height: height * 0.30,
+                  ),
+                  const CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                ]),
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.end,
