@@ -1,13 +1,13 @@
-class Totals {
+class TotalsModel {
   final int totalPaied;
   final int totalPeceived;
-  const Totals({
+  const TotalsModel({
     required this.totalPaied,
     required this.totalPeceived,
   });
 
-  factory Totals.fromJson(Map<String, dynamic> map) {
-    return Totals(
+  factory TotalsModel.fromJson(Map<String, dynamic> map) {
+    return TotalsModel(
       totalPaied: map['total_paied'].toInt(),
       totalPeceived: map['total_received'].toInt(),
     );

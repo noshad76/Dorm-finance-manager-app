@@ -154,7 +154,7 @@ class _MainPageState extends State<MainPage> {
                             'assets/icons/🦆 icon _money send_.svg',
                             height: height * 0.045,
                           ),
-                          price: '18,500',
+                          price: value.totalsModel!.totalPaied.toString(),
                           text: 'کلیه بدهی ها',
                         ),
                         SizedBox(
@@ -164,7 +164,7 @@ class _MainPageState extends State<MainPage> {
                           icon: SvgPicture.asset(
                               'assets/icons/🦆 icon _money resive_.svg',
                               height: height * 0.04),
-                          price: '18,500',
+                          price: value.totalsModel!.totalPeceived.toString(),
                           text: 'کلیه خرج ها',
                         ),
                       ],

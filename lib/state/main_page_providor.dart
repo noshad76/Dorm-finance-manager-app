@@ -1,6 +1,7 @@
 import 'package:expense_app/api/api_service.dart';
 import 'package:expense_app/database/app_database.dart';
 import 'package:expense_app/models/payment_model.dart';
+import 'package:expense_app/models/totals_model.dart';
 import 'package:expense_app/models/user_model.dart';
 import 'package:flutter/material.dart';
 
@@ -150,11 +151,12 @@ class MainPageProvider extends ChangeNotifier {
   //   notifyListeners();
   //   return allPayemnts;
   // }
-
+  TotalsModel? totalsModel;
   Future refresh() async {
     try {
       notificationPayemnts = await getPayments(await TokenBox.getToken());
       allPayemnts = await getAllPayments(await TokenBox.getToken());
+      totalsModel = await getTotals(await TokenBox.getToken());
     } on Exception catch (_) {
       debugPrint("throwing new error");
       throw Exception("Error on server");
@@ -191,6 +193,7 @@ class MainPageProvider extends ChangeNotifier {
 
   void initDataAfterLogout() {
     allPayemnts.clear();
+    
     notificationPayemnts.clear();
     changeselectedCardIndex(0);
     if (selectedCardIndex == 0) {

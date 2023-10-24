@@ -6,6 +6,7 @@ import 'package:expense_app/constants/base_url.dart';
 import 'package:expense_app/database/app_database.dart';
 import 'package:expense_app/models/debts_model.dart';
 import 'package:expense_app/models/payment_model.dart';
+import 'package:expense_app/models/totals_model.dart';
 import 'package:expense_app/models/user_model.dart';
 import 'package:flutter/material.dart';
 
@@ -141,4 +142,20 @@ Future<List<Debts?>> getAllDebts(String? token) async {
     return Debts.fromJson(e);
   }).toList();
   return debts;
+}
+
+Future<TotalsModel?> getTotals(String? token) async {
+  Response resp = await dio.get('$baseUrl/total-costs',
+      options: Options(headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+        'APP-X-TOKEN': token,
+      }));
+
+  Map<String, dynamic> json = jsonDecode(resp.toString());
+  debugPrint(json.toString());
+
+  if (json['ok'] == true) {
+    return TotalsModel.fromJson(json);
+  }
+  return null;
 }
