@@ -196,13 +196,13 @@ class MainPageProvider extends ChangeNotifier {
   }
 
   void initDataAfterLogout() {
-    allPayemnts.clear();
-
-    notificationPayemnts.clear();
     changeselectedCardIndex(0);
     if (selectedCardIndex == 0) {
       cardAnimationToFalse();
     }
+    // allPayemnts.clear();
+
+    // notificationPayemnts.clear();
 
     notifyListeners();
   }
@@ -210,6 +210,6 @@ class MainPageProvider extends ChangeNotifier {
   String dateFormatter(Date d) {
     final f = d.formatter;
 
-    return '${f.wN} ${f.d} ${f.mN}';
+    return '${f.wN} ${f.d} ${f.mN} ${f.yy}';
   }
 }

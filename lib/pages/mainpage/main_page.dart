@@ -283,6 +283,12 @@ class _MainPageState extends State<MainPage> {
                                         .customshowModalBottomSheet(
                                             context, refreshController);
                                     value.resetPaymentValues();
+
+                                    value.changeselectedCardIndex(0);
+                                    if (value.selectedCardIndex == 0) {
+                                      value.cardAnimationToFalse();
+                                    }
+                                    value.changecardAnimation();
                                     value.changeisLoadingAddPaymentnTofalse();
                                   },
                           )
