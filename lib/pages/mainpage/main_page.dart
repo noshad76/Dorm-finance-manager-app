@@ -30,8 +30,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
 
   @override
   void initState() {
@@ -49,7 +47,9 @@ class _MainPageState extends State<MainPage> {
           Provider.of<MainPageProvider>(context, listen: false)
               .changeMainPageisPullToRefreshToFalse();
         } catch (e) {
-          refreshController.refreshFailed();
+          Provider.of<MainPageProvider>(context, listen: false)
+              .refreshController
+              .refreshFailed();
           Provider.of<MainPageProvider>(context, listen: false)
               .changeMainPageHaseExeptionToFalse();
           showTopSnackBar(
@@ -83,7 +83,7 @@ class _MainPageState extends State<MainPage> {
               padding: EdgeInsets.symmetric(horizontal: width * 0.035),
               child: SmartRefresher(
                 enablePullUp: false,
-                controller: refreshController,
+                controller: value.refreshController,
                 onRefresh: () async {
                   try {
                     value.changeMainPageHaseExeptionToTrue();
@@ -96,7 +96,7 @@ class _MainPageState extends State<MainPage> {
                     Provider.of<MainPageProvider>(context, listen: false)
                         .changeMainPageisPullToRefreshToFalse();
                   } on Exception catch (_) {
-                    refreshController.refreshFailed();
+                    value.refreshController.refreshFailed();
                     value.changeMainPageHaseExeptionToFalse();
                     showTopSnackBar(
                       Overlay.of(context),
@@ -106,7 +106,7 @@ class _MainPageState extends State<MainPage> {
                     );
                   }
 
-                  refreshController.refreshCompleted();
+                  value.refreshController.refreshCompleted();
                 },
                 child: Column(
                   children: [
@@ -277,7 +277,6 @@ class _MainPageState extends State<MainPage> {
                                         .customshowModalBottomSheet(context);
                                     value.resetPaymentValues();
                                     value.changeisLoadingAddPaymentnTofalse();
-                                    refreshController.requestRefresh();
                                   },
                           )
                         ],

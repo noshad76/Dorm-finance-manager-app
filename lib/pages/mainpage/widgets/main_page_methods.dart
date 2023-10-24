@@ -228,10 +228,10 @@ class MainPageMethods {
                               onpressed: () async {
                                 if (!context.mounted) return;
 
-                                if (mainPageProvider.title!.isEmpty ||
-                                    mainPageProvider.price!.isEmpty ||
-                                    mainPageProvider.title == null ||
-                                    mainPageProvider.price == null) {
+                                if (mainPageProvider.title == null ||
+                                    mainPageProvider.price == null ||
+                                    mainPageProvider.title!.isEmpty ||
+                                    mainPageProvider.price!.isEmpty) {
                                   showTopSnackBar(
                                     Overlay.of(context),
                                     const CustomSnackBar.error(
@@ -293,6 +293,8 @@ class MainPageMethods {
                                         displayDuration:
                                             const Duration(seconds: 2),
                                       );
+                                      mainPageProvider.refreshController
+                                          .requestRefresh();
                                     } else {
                                       if (!context.mounted) return;
                                       showTopSnackBar(
