@@ -126,7 +126,7 @@ class TotalsPaymentItems extends StatelessWidget {
                         SizedBox(
                           width: 150,
                           child: Text(
-                            "pay to ${payment.createdBy!.name}\n${payment.description.length > 20 ? '${payment.description.substring(0, 20)} ...' : payment.description}",
+                            "پرداخت به ${payment.createdBy!.name}\n${payment.description.length > 20 ? '${payment.description.substring(0, 20)} ...' : payment.description}",
                             textDirection: TextDirection.rtl,
                             style: TextStyle(
                                 fontFamily: 'vazir',
