@@ -46,8 +46,15 @@ class _MyAppState extends State<MyApp> {
             secondary: Colors.purple,
           ),
         ),
+        title: 'Dormnance',
         debugShowCheckedModeBanner: false,
         home: const LoadingPage(),
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: child!,
+          );
+        },
       ),
     );
   }
