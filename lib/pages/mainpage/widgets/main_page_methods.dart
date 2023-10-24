@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persian_datetimepickers/persian_datetimepickers.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -109,7 +110,7 @@ class MainPageMethods {
   }
 
   static Future<dynamic> customshowModalBottomSheet(
-      BuildContext context) async {
+      BuildContext context, RefreshController refreshController) async {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     Jalali? jalaliDate;
@@ -293,8 +294,7 @@ class MainPageMethods {
                                         displayDuration:
                                             const Duration(seconds: 2),
                                       );
-                                      mainPageProvider.refreshController
-                                          .requestRefresh();
+                                      refreshController.requestRefresh();
                                     } else {
                                       if (!context.mounted) return;
                                       showTopSnackBar(

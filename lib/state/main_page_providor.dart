@@ -4,7 +4,6 @@ import 'package:expense_app/models/payment_model.dart';
 import 'package:expense_app/models/totals_model.dart';
 import 'package:expense_app/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MainPageProvider extends ChangeNotifier {
   int secetionIndex = 1;
@@ -194,7 +193,7 @@ class MainPageProvider extends ChangeNotifier {
 
   void initDataAfterLogout() {
     allPayemnts.clear();
-    
+
     notificationPayemnts.clear();
     changeselectedCardIndex(0);
     if (selectedCardIndex == 0) {
@@ -203,6 +202,4 @@ class MainPageProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
 }
