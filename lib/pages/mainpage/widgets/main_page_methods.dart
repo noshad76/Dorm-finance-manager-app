@@ -295,6 +295,12 @@ class MainPageMethods {
                                             const Duration(seconds: 2),
                                       );
                                       refreshController.requestRefresh();
+                                      mainPageProvider
+                                          .changeselectedCardIndex(0);
+                                      if (mainPageProvider.selectedCardIndex ==
+                                          0) {
+                                        mainPageProvider.cardAnimationToFalse();
+                                      }
                                     } else {
                                       if (!context.mounted) return;
                                       showTopSnackBar(

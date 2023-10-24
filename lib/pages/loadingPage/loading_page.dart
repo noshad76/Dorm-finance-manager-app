@@ -35,6 +35,7 @@ class _LoadingPageState extends State<LoadingPage> {
     TokenBox.getToken().then(
       (value) {
         token = value;
+        debugPrint(token);
         if (token == null || token!.isEmpty) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
