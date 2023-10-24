@@ -154,6 +154,11 @@ class CustomRightDrawer extends StatelessWidget {
                             await TokenBox.removeToken();
                             value.changeMenuIndex(0);
                             if (!context.mounted) return;
+                            value.changeselectedCardIndex(0);
+                            if (value.selectedCardIndex == 0) {
+                              value.cardAnimationToFalse();
+                            }
+                            value.changecardAnimation();
 
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
