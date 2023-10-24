@@ -39,7 +39,7 @@ class ModalTextField extends StatelessWidget {
               if (index == 0) {
                 mainPageProvider.title = value;
               } else if (index == 1) {
-                mainPageProvider.price = int.parse(value);
+                mainPageProvider.price = value;
               } else if (index == 2) {
                 mainPageProvider.description = value;
               }

@@ -228,7 +228,9 @@ class MainPageMethods {
                               onpressed: () async {
                                 if (!context.mounted) return;
 
-                                if (mainPageProvider.title == null ||
+                                if (mainPageProvider.title!.isEmpty ||
+                                    mainPageProvider.price!.isEmpty ||
+                                    mainPageProvider.title == null ||
                                     mainPageProvider.price == null) {
                                   showTopSnackBar(
                                     Overlay.of(context),
@@ -255,7 +257,7 @@ class MainPageMethods {
                                         .changeisLoadingAddPaymentn();
                                     Payment payment = Payment(
                                       title: mainPageProvider.title!,
-                                      price: mainPageProvider.price!,
+                                      price: int.parse(mainPageProvider.price!),
                                       description:
                                           mainPageProvider.description ?? '',
                                       date: mainPageProvider.date!,
@@ -538,7 +540,7 @@ class MainPageMethods {
     );
   }
 
-  static Widget appbar( void Function()? onTap) {
+  static Widget appbar(void Function()? onTap) {
     return Consumer<MainPageProvider>(
       builder: (context, value, child) {
         double width = MediaQuery.of(context).size.width;
@@ -573,9 +575,8 @@ class MainPageMethods {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(width * 0.1),
-                  onTap:onTap
-                ),
+                    borderRadius: BorderRadius.circular(width * 0.1),
+                    onTap: onTap),
               ),
             )
           ],

@@ -4,6 +4,7 @@ import 'package:expense_app/pages/loadingPage/loading_page.dart';
 import 'package:expense_app/pages/mainpage/main_page.dart';
 import 'package:expense_app/pages/netPayments/net_payment_page.dart';
 import 'package:expense_app/state/main_page_providor.dart';
+import 'package:expense_app/state/net_payment_page_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -105,12 +106,14 @@ class CustomRightDrawer extends StatelessWidget {
                           icons: icons[1],
                           index: 1,
                           onTap: () {
-                            value.changeMenuIndex(1);
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return const NetPaymentsPage();
-                              },
-                            ));
+                            if (value.menuIndex != 1) {
+                              value.changeMenuIndex(1);
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return const NetPaymentsPage();
+                                },
+                              ));
+                            }
                           },
                         ),
                         SizedBox(
@@ -143,10 +146,16 @@ class CustomRightDrawer extends StatelessWidget {
                           icons: icons[4],
                           index: 4,
                           onTap: () async {
+                            value.initDataAfterLogout();
+                            Provider.of<NetPaymentPageProvider>(context,
+                                    listen: false)
+                                .initData();
                             await TokenBox.removeToken();
                             value.changeMenuIndex(0);
                             if (!context.mounted) return;
-                            Navigator.of(context).push(MaterialPageRoute(
+
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
                               builder: (context) {
                                 return const LoadingPage();
                               },

@@ -57,4 +57,9 @@ class NetPaymentPageProvider extends ChangeNotifier {
     debugPrint('is net payment caled $isNetPaymentPageHaseExeption');
     notifyListeners();
   }
+
+  initData() {
+    allDebts.clear();
+    notifyListeners();
+  }
 }

@@ -277,6 +277,7 @@ class _MainPageState extends State<MainPage> {
                                         .customshowModalBottomSheet(context);
                                     value.resetPaymentValues();
                                     value.changeisLoadingAddPaymentnTofalse();
+                                    refreshController.requestRefresh();
                                   },
                           )
                         ],

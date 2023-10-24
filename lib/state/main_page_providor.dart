@@ -53,7 +53,7 @@ class MainPageProvider extends ChangeNotifier {
   }
 
   String? title;
-  int? price;
+  String? price;
   String? description;
   int? date;
   List<User> contacts = [];
@@ -187,5 +187,16 @@ class MainPageProvider extends ChangeNotifier {
       }
     }
     return priceInText.trim();
+  }
+
+  void initDataAfterLogout() {
+    allPayemnts.clear();
+    notificationPayemnts.clear();
+    changeselectedCardIndex(0);
+    if (selectedCardIndex == 0) {
+      cardAnimationToFalse();
+    }
+
+    notifyListeners();
   }
 }

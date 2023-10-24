@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:expense_app/constants/const.dart';
 import 'package:expense_app/pages/mainpage/main_page.dart';
 import 'package:expense_app/pages/mainpage/widgets/drawers/custom_right_drawer.dart';
-import 'package:expense_app/pages/mainpage/widgets/main_page_methods.dart';
 import 'package:expense_app/state/main_page_providor.dart';
 import 'package:expense_app/state/net_payment_page_provider.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +75,11 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
       body: WillPopScope(
         onWillPop: () async {
           Provider.of<MainPageProvider>(context).changeMenuIndex(0);
-          Navigator.of(context).pop();
+          Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (context) {
+              return MainPage();
+            },
+          ));
           return true;
         },
         child: Consumer<NetPaymentPageProvider>(
@@ -158,14 +161,12 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                       color: Colors.white,
                                       size: width * 0.08,
                                     ))),
-                            MainPageMethods.appbar(
-                              !value.isNetPaymentPageHaseExeption ||
-                                      value.isNetPaymentPagePullToRefresh
-                                  ? () {}
-                                  : () {
-                                      _key.currentState!.openEndDrawer();
-                                    },
-                            ),
+                            Text(': پرداخت های خالص',
+                                style: TextStyle(
+                                    fontFamily: 'vazir',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: width * 0.045))
                           ],
                         ),
                       ),
@@ -482,13 +483,13 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                                       ],
                                                     ),
                                                     ElevatedButton(
-                                                      onPressed: () {
-                                                        debugPrint(
-                                                            "Clicked on : ${value.allDebts[index]!.user.username}");
-                                                        customNetPaymentDialog(
+                                                      onPressed: () async {
+                                                        await customNetPaymentDialog(
                                                             context,
                                                             height,
                                                             width);
+                                                        refreshController
+                                                            .requestRefresh();
                                                       },
                                                       style: ButtonStyle(
                                                         backgroundColor:
