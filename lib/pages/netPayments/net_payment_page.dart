@@ -486,8 +486,6 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                                             context,
                                                             height,
                                                             width);
-                                                        refreshController
-                                                            .requestRefresh();
                                                       },
                                                       style: ButtonStyle(
                                                         backgroundColor:
@@ -576,17 +574,28 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                           onPressed: value.isLoadingPayNetPayment
                               ? () {}
                               : () async {
-                                  value.changeisLoadingPayNetPaymentToTrue();
-                                  await value.payNetPayment();
-                                  value.changeisLoadingPayNetPaymentTofalse();
-                                  if (!context.mounted) return;
-                                  Navigator.of(context).pop();
-                                  showTopSnackBar(
-                                    Overlay.of(context),
-                                    const CustomSnackBar.success(
-                                      message: "پرداخت با موفقیت انجام شد",
-                                    ),
-                                  );
+                                  try {
+                                    value.changeisLoadingPayNetPaymentToTrue();
+                                    await value.payNetPayment();
+                                    value.changeisLoadingPayNetPaymentTofalse();
+                                    if (!context.mounted) return;
+                                    Navigator.of(context).pop();
+                                    showTopSnackBar(
+                                      Overlay.of(context),
+                                      const CustomSnackBar.success(
+                                        message: "پرداخت با موفقیت انجام شد",
+                                      ),
+                                    );
+                                    refreshController.requestRefresh();
+                                  } catch (e) {
+                                    Navigator.of(context).pop();
+                                    showTopSnackBar(
+                                      Overlay.of(context),
+                                      const CustomSnackBar.error(
+                                        message: "پرداخت با مشکل مواجه شد",
+                                      ),
+                                    );
+                                  }
                                 },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(

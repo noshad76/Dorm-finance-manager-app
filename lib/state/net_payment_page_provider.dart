@@ -35,7 +35,9 @@ class NetPaymentPageProvider extends ChangeNotifier {
   payNetPayment() async {
     await Future.delayed(
       const Duration(seconds: 2),
-      () {},
+      () {
+        throw 'asd';
+      },
     );
   }
 
@@ -54,7 +56,7 @@ class NetPaymentPageProvider extends ChangeNotifier {
 
   void changeNetPaymentPageHaseExeptionToFalse() {
     isNetPaymentPageHaseExeption = false;
-    debugPrint('is net payment caled $isNetPaymentPageHaseExeption');
+
     notifyListeners();
   }
 
