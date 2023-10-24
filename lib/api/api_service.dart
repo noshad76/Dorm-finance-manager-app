@@ -8,7 +8,6 @@ import 'package:expense_app/models/debts_model.dart';
 import 'package:expense_app/models/payment_model.dart';
 import 'package:expense_app/models/totals_model.dart';
 import 'package:expense_app/models/user_model.dart';
-import 'package:flutter/material.dart';
 
 final dio = Dio(
   BaseOptions(
@@ -26,7 +25,7 @@ Future<bool> sendPayment(Payment payment) async {
       }));
 
   Map<String, dynamic> json = jsonDecode(resp.toString());
-  debugPrint(json.toString());
+  //debugPrint(json.toString());
 
   return json['ok'];
 }
@@ -38,7 +37,7 @@ Future<bool> login(String username, String password) async {
           headers: {HttpHeaders.contentTypeHeader: "application/json"}));
 
   Map<String, dynamic> json = jsonDecode(resp.toString());
-  debugPrint(json.toString());
+  //debugPrint(json.toString());
 
   if (json['ok'] == true) {
     TokenBox.saveToken(json['token']);
@@ -55,7 +54,7 @@ Future<User?> requestLoginStatus(String token) async {
       }));
 
   Map<String, dynamic> json = jsonDecode(resp.toString());
-  debugPrint(json.toString());
+  //debugPrint(json.toString());
 
   if (json['ok'] == true) {
     return User.fromjson(json['user']);
@@ -63,7 +62,7 @@ Future<User?> requestLoginStatus(String token) async {
   return null;
 }
 
-Future<List<User?>> getContacts(String token) async {
+Future<List<User?>> getContacts(String? token) async {
   Response resp = await dio.get(
     '$baseUrl/list-users',
     options: Options(
@@ -75,7 +74,7 @@ Future<List<User?>> getContacts(String token) async {
   );
 
   Map<String, dynamic> json = jsonDecode(resp.toString());
-  debugPrint(json.toString());
+  //debugPrint(json.toString());
 
   List<User> contacts = List.castFrom(json['users']).map((e) {
     return User.fromjson(e);
@@ -96,7 +95,7 @@ Future<List<Payment?>> getPayments(String? token) async {
   );
 
   Map<String, dynamic> json = jsonDecode(resp.toString());
-  debugPrint(json.toString());
+  //debugPrint(json.toString());
 
   List<Payment> payments = List.castFrom(json['payments']).map((e) {
     return Payment.fromjson(e);
@@ -116,7 +115,7 @@ Future<List<Payment?>> getAllPayments(String? token) async {
   );
 
   Map<String, dynamic> json = jsonDecode(resp.toString());
-  debugPrint(json.toString());
+  //debugPrint(json.toString());
 
   List<Payment> payments = List.castFrom(json['payments']).map((e) {
     return Payment.fromjson(e);
@@ -136,7 +135,7 @@ Future<List<Debts?>> getAllDebts(String? token) async {
   );
 
   Map<String, dynamic> json = jsonDecode(resp.toString());
-  debugPrint(json.toString());
+  //debugPrint(json.toString());
 
   List<Debts> debts = List.castFrom(json['debts']).map((e) {
     return Debts.fromJson(e);
@@ -152,7 +151,7 @@ Future<TotalsModel?> getTotals(String? token) async {
       }));
 
   Map<String, dynamic> json = jsonDecode(resp.toString());
-  debugPrint(json.toString());
+  //debugPrint(json.toString());
 
   if (json['ok'] == true) {
     return TotalsModel.fromJson(json);
@@ -168,6 +167,6 @@ Future<bool> payDebt(String? token, int id) async {
         'APP-X-TOKEN': token,
       }));
   Map<String, dynamic> json = jsonDecode(resp.toString());
-  debugPrint(json.toString());
+  //debugPrint(json.toString());
   return json['ok'];
 }

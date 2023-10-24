@@ -85,9 +85,13 @@ class _MainPageState extends State<MainPage> {
                 controller: refreshController,
                 onRefresh: () async {
                   try {
+                    //debugPrint("***********3");
+
                     value.changeMainPageHaseExeptionToTrue();
                     Provider.of<MainPageProvider>(context, listen: false)
                         .changeMainPageisPullToRefreshToTrue();
+
+                    //debugPrint("################################3");
                     await Provider.of<MainPageProvider>(context, listen: false)
                         .refresh();
                     if (!context.mounted) return;

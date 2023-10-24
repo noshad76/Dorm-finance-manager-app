@@ -1,3 +1,4 @@
+
 import 'package:expense_app/api/api_service.dart';
 import 'package:expense_app/database/app_database.dart';
 import 'package:expense_app/models/payment_model.dart';
@@ -61,7 +62,6 @@ class MainPageProvider extends ChangeNotifier {
 
   void addcontact(User user) {
     contacts.add(user);
-    debugPrint(contacts.toString());
     notifyListeners();
   }
 
@@ -152,13 +152,17 @@ class MainPageProvider extends ChangeNotifier {
   //   return allPayemnts;
   // }
   TotalsModel? totalsModel;
+  List<User?> savedContacts = [];
   Future refresh() async {
     try {
       notificationPayemnts = await getPayments(await TokenBox.getToken());
       allPayemnts = await getAllPayments(await TokenBox.getToken());
       totalsModel = await getTotals(await TokenBox.getToken());
+      savedContacts = await getContacts(await TokenBox.getToken());
+      savedContacts =
+          savedContacts.where((element) => element!.id != mainUserid).toList();
+      notifyListeners();
     } on Exception catch (_) {
-      debugPrint("throwing new error");
       throw Exception("Error on server");
     }
   }

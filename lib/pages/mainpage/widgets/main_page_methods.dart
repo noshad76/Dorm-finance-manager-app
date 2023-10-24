@@ -3,9 +3,7 @@ import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:expense_app/api/api_service.dart';
 import 'package:expense_app/constants/const.dart';
-import 'package:expense_app/database/app_database.dart';
 import 'package:expense_app/models/payment_model.dart';
-import 'package:expense_app/models/user_model.dart';
 import 'package:expense_app/pages/mainpage/widgets/custom_main_elevated_button.dart';
 import 'package:expense_app/pages/mainpage/widgets/elevated_button.dart';
 import 'package:expense_app/pages/mainpage/widgets/modal_text_field.dart';
@@ -401,139 +399,77 @@ class MainPageMethods {
                           color: const Color(0xFF2A2860),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: FutureBuilder(
-                          future: Future<List<User?>>.sync(() async {
-                            String? token = await TokenBox.getToken();
-                            List<User?> contacts = [];
-                            try {
-                              contacts = await getContacts(token!);
-                              contacts = contacts
-                                  .where((element) =>
-                                      (element!.id != value.mainUserid))
-                                  .toList();
-                            } on DioException catch (e) {
-                              if (e.type ==
-                                      DioExceptionType.connectionTimeout ||
-                                  e.type == DioExceptionType.receiveTimeout ||
-                                  e.type == DioExceptionType.sendTimeout ||
-                                  e.type == DioExceptionType.connectionError) {
-                                showTopSnackBar(
-                                  // ignore: use_build_context_synchronously
-                                  Overlay.of(context),
-                                  const CustomSnackBar.error(
-                                      message: "اتصال خود را بررسی کنید"),
-                                  displayDuration: const Duration(seconds: 2),
-                                );
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context).pop();
-                                throw Exception();
-                              }
-                            }
-                            return contacts;
-                          }),
-                          builder: (context, snapshot) {
-                            return snapshot.hasData
-                                ? ListView.separated(
-                                    physics: const BouncingScrollPhysics(),
-                                    separatorBuilder: (context, index) {
-                                      return SizedBox(
-                                        height: width * 0.02,
-                                      );
-                                    },
-                                    itemCount: snapshot.data!.length,
-                                    itemBuilder: (context, index) {
-                                      return Material(
-                                        color: Colors.transparent,
-                                        child: InkWell(
-                                          borderRadius: BorderRadius.only(
-                                              topRight:
-                                                  Radius.circular(width * 0.5),
-                                              bottomRight:
-                                                  Radius.circular(width * 0.5),
-                                              bottomLeft:
-                                                  Radius.circular(width * 0.3),
-                                              topLeft:
-                                                  Radius.circular(width * 0.3)),
-                                          onTap: () {
-                                            if (value.contacts
-                                                .map((e) => e.id)
-                                                .toList()
-                                                .contains(snapshot
-                                                    .data![index]!.id)) {
-                                              value.removecontact(
-                                                  snapshot.data![index]!);
-                                            } else {
-                                              value.addcontact(
-                                                  snapshot.data![index]!);
-                                            }
-                                            // debugPrint(
-                                            //     '111111111111111111111111111111111111${value.contacts}');
-                                            // debugPrint(
-                                            //     '22222222222222222222222222222222222222${snapshot.data![index]!.id}');
-                                            // debugPrint(
-                                            //     '333333333333333333333333333333333333333333${value.contacts.contains(snapshot.data![index]!)}');
-                                          },
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: width * 0.01,
-                                              ),
-                                              value.contacts
-                                                      .map((e) => e.id)
-                                                      .toList()
-                                                      .contains(snapshot
-                                                          .data![index]!.id)
-                                                  ? SvgPicture.asset(
-                                                      'assets/icons/checked.svg')
-                                                  : SvgPicture.asset(
-                                                      'assets/icons/unchecked.svg'),
-                                              const Spacer(),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    snapshot.data![index]!.name,
-                                                    style: const TextStyle(
-                                                        fontFamily: 'vazir',
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 14,
-                                                        color: Colors.white),
-                                                  ),
-                                                  SizedBox(
-                                                    width: width * 0.02,
-                                                  ),
-                                                  CircleAvatar(
-                                                    radius: width * 0.07,
-                                                    backgroundImage:
-                                                        const AssetImage(
-                                                      'assets/images/1.jpg',
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
+                        child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          separatorBuilder: (context, index) {
+                            return SizedBox(
+                              height: width * 0.02,
+                            );
+                          },
+                          itemCount: value.savedContacts.length,
+                          itemBuilder: (context, index) {
+                            return Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(width * 0.5),
+                                    bottomRight: Radius.circular(width * 0.5),
+                                    bottomLeft: Radius.circular(width * 0.3),
+                                    topLeft: Radius.circular(width * 0.3)),
+                                onTap: () {
+                                  if (value.contacts
+                                      .map((e) => e.id)
+                                      .toList()
+                                      .contains(
+                                          value.savedContacts[index]!.id)) {
+                                    value.removecontact(
+                                        value.savedContacts[index]!);
+                                  } else {
+                                    value.addcontact(
+                                        value.savedContacts[index]!);
+                                  }
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: width * 0.01,
+                                    ),
+                                    value.contacts
+                                            .map((e) => e.id)
+                                            .toList()
+                                            .contains(
+                                                value.savedContacts[index]!.id)
+                                        ? SvgPicture.asset(
+                                            'assets/icons/checked.svg')
+                                        : SvgPicture.asset(
+                                            'assets/icons/unchecked.svg'),
+                                    const Spacer(),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          value.savedContacts[index]!.name,
+                                          style: const TextStyle(
+                                              fontFamily: 'vazir',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                        ),
+                                        SizedBox(
+                                          width: width * 0.02,
+                                        ),
+                                        CircleAvatar(
+                                          radius: width * 0.07,
+                                          backgroundImage: const AssetImage(
+                                            'assets/images/1.jpg',
                                           ),
                                         ),
-                                      );
-                                    },
-                                  )
-                                : snapshot.hasError
-                                    ? const Text('')
-                                    : SizedBox(
-                                        width: width * 0.6,
-                                        height: width * 0.6,
-                                        child: Center(
-                                          child: SizedBox(
-                                            width: width * 0.2,
-                                            height: width * 0.2,
-                                            child:
-                                                const CircularProgressIndicator(
-                                                    color: Colors.white),
-                                          ),
-                                        ),
-                                      );
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
