@@ -261,6 +261,7 @@ class MainPageMethods {
                                           mainPageProvider.description ?? '',
                                       date: mainPageProvider.date!,
                                       users: mainPageProvider.contacts,
+                                      
                                     );
                                     bool isPaymentSent = false;
                                     String err = "";

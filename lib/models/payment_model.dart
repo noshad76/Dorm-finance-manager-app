@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:expense_app/models/user_model.dart';
 
 class Payment {
@@ -7,6 +8,7 @@ class Payment {
   int date;
   List<User> users;
   User? createdBy;
+  List<dynamic>? paidBy;
   Payment({
     required this.title,
     required this.price,
@@ -14,6 +16,7 @@ class Payment {
     required this.date,
     required this.users,
     this.createdBy,
+    this.paidBy,
   });
   Map<String, dynamic> tojson() {
     return {
@@ -35,6 +38,7 @@ class Payment {
         return User.fromjson(e);
       }).toList(),
       createdBy: User.fromjson(json['created_by']),
+      paidBy: json['paied_by'],
     );
   }
 }
