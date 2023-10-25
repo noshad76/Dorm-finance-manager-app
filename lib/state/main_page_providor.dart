@@ -210,6 +210,6 @@ class MainPageProvider extends ChangeNotifier {
   String dateFormatter(Date d) {
     final f = d.formatter;
 
-    return '${f.d} ${f.mN} ${f.yy}';
+    return '${f.wN} ${f.d} ${f.mN}';
   }
 }
