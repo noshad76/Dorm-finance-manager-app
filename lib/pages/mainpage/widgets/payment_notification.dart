@@ -45,7 +45,7 @@ class PaymentNotification extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(width * 0.07),
                 ),
-                height: height * 0.125,
+                height: height * 0.145,
                 child: Padding(
                   padding: EdgeInsets.all(width * 0.01),
                   child: Column(
@@ -77,37 +77,38 @@ class PaymentNotification extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: height * 0.025,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.attach_money_rounded,
-                                      size: width * 0.06,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      value.formatAmount((payment.price ~/
-                                              (payment.users.length + 1))
-                                          .toString()),
-                                      style: GoogleFonts.inter(
+                              Row(
+                                children: [
+                                  Text('تومان ',
+                                      style: TextStyle(
+                                          fontFamily: 'vazir',
                                           color: Colors.white,
-                                          fontSize: width * 0.05,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
+                                          fontSize: width * 0.027,
+                                          fontWeight: FontWeight.bold)),
+                                  Text(
+                                    Constant.englishToPersianNumbers(
+                                        value.formatAmount((payment.price ~/
+                                                (payment.users.length + 1))
+                                            .toString())),
+                                    style: GoogleFonts.inter(
+                                        color: Colors.white,
+                                        fontSize: width * 0.05,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons.attach_money_rounded,
-                                    size: width * 0.05,
-                                    color: Colors.white38,
-                                  ),
+                                  Text('تومان ',
+                                      style: TextStyle(
+                                          fontFamily: 'vazir',
+                                          color: Colors.white38,
+                                          fontSize: width * 0.027,
+                                          fontWeight: FontWeight.bold)),
                                   Text(
-                                    value.formatAmount(
-                                        payment.price.toInt().toString()),
+                                    Constant.englishToPersianNumbers(
+                                        value.formatAmount(
+                                            payment.price.toInt().toString())),
                                     style: GoogleFonts.inter(
                                         color: Colors.white38,
                                         fontSize: width * 0.04,
@@ -122,11 +123,12 @@ class PaymentNotification extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  value.dateFormatter(Jalali.fromDateTime(
-                                      DateTime.fromMillisecondsSinceEpoch(value
-                                              .notificationPayemnts[index]!
-                                              .date *
-                                          1000))),
+                                  Constant.englishToPersianNumbers(
+                                      value.dateFormatter(Jalali.fromDateTime(
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                              value.notificationPayemnts[index]!
+                                                      .date *
+                                                  1000)))),
                                   style: TextStyle(
                                       fontFamily: 'vazir',
                                       color: Colors.white38,

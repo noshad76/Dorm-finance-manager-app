@@ -328,7 +328,7 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                               return Container(
                                                 padding: EdgeInsets.all(
                                                     width * 0.04),
-                                                height: height * 0.225,
+                                                height: height * 0.235,
                                                 width: width * 0.7,
                                                 decoration: BoxDecoration(
                                                     color:
@@ -375,19 +375,22 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                                                   0.045),
                                                         ),
                                                         Text(
-                                                          value2.formatAmount(
-                                                              value
-                                                                  .allDebts[
-                                                                      index]!
-                                                                  .price
-                                                                  .toString()),
+                                                          Constant
+                                                              .englishToPersianNumbers(
+                                                            value2.formatAmount(
+                                                                value
+                                                                    .allDebts[
+                                                                        index]!
+                                                                    .price
+                                                                    .toString()),
+                                                          ),
                                                           style:
                                                               GoogleFonts.inter(
                                                                   color: Colors
                                                                       .white,
                                                                   fontSize:
                                                                       width *
-                                                                          0.045,
+                                                                          0.055,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500),
@@ -415,14 +418,14 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                                           MainAxisAlignment.end,
                                                       children: [
                                                         Text(
-                                                          value
+                                                          (value
                                                               .formatCreditCardNumber(
                                                             value
                                                                 .allDebts[
                                                                     index]!
                                                                 .user
                                                                 .cardNumber,
-                                                          ),
+                                                          )),
                                                           style:
                                                               GoogleFonts.inter(
                                                                   color: Colors
@@ -610,7 +613,7 @@ class _NetPaymentsPageState extends State<NetPaymentsPage> {
                                     showTopSnackBar(
                                       Overlay.of(context),
                                       const CustomSnackBar.error(
-                                        message: "مشگل در ارتباط با سرور",
+                                        message: "مشکل در ارتباط با سرور",
                                       ),
                                     );
                                   }

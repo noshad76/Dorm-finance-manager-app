@@ -61,12 +61,15 @@ class PaymentItem extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.attach_money_rounded,
-                            size: width * 0.07,
-                            color: Colors.white,
-                          ),
-                          Text(value.formatAmount('${payment.price}'),
+                          Text('تومان ',
+                              style: TextStyle(
+                                  fontFamily: 'vazir',
+                                  color: Colors.white,
+                                  fontSize: width * 0.04,
+                                  fontWeight: FontWeight.bold)),
+                          Text(
+                              Constant.englishToPersianNumbers(
+                                  value.formatAmount('${payment.price}')),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: width * 0.06,
@@ -102,18 +105,22 @@ class PaymentItem extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
-                                      Icons.attach_money_rounded,
-                                      size: width * 0.05,
-                                      color: Colors.white38,
+                                    Text(
+                                      'تومان ',
+                                      style: TextStyle(
+                                          fontFamily: 'vazir',
+                                          color: Colors.white54,
+                                          fontSize: width * 0.03,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      value.formatAmount((payment.price ~/
-                                              (payment.users.length + 1))
-                                          .toString()),
+                                      Constant.englishToPersianNumbers(
+                                          value.formatAmount((payment.price ~/
+                                                  (payment.users.length + 1))
+                                              .toString())),
                                       style: GoogleFonts.inter(
                                           color: Colors.white54,
-                                          fontSize: width * 0.04,
+                                          fontSize: width * 0.045,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ],
@@ -127,10 +134,11 @@ class PaymentItem extends StatelessWidget {
                                   height: height * 0.005,
                                 ),
                                 Text(
-                                  value.dateFormatter(Jalali.fromDateTime(
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          value.allPayemnts[index]!.date *
-                                              1000))),
+                                  Constant.englishToPersianNumbers(
+                                      value.dateFormatter(Jalali.fromDateTime(
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                              value.allPayemnts[index]!.date *
+                                                  1000)))),
                                   style: TextStyle(
                                       fontFamily: 'vazir',
                                       color: Colors.white38,

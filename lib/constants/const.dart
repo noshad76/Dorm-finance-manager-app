@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Constant {
-
   static const Color loginBackground1 = Color(0xFF191347);
   static const Color loginTextField = Color(0xFF2b2a66);
   static const Color loginbutton = Color(0xFF8168F7);
@@ -23,4 +22,29 @@ class Constant {
     ],
     [const Color(0xFF93abfe), const Color(0xFF5153bb)]
   ];
+  static String englishToPersianNumbers(String input) {
+    Map<String, String> numberMap = {
+      '0': '۰',
+      '1': '۱',
+      '2': '۲',
+      '3': '۳',
+      '4': '۴',
+      '5': '۵',
+      '6': '۶',
+      '7': '۷',
+      '8': '۸',
+      '9': '۹',
+    };
+
+    String result = '';
+    for (int i = 0; i < input.length; i++) {
+      String char = input[i];
+      if (numberMap.containsKey(char)) {
+        result += numberMap[char]!;
+      } else {
+        result += char;
+      }
+    }
+    return result;
+  }
 }

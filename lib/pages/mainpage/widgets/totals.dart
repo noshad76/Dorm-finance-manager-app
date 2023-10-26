@@ -35,9 +35,11 @@ class Totals extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                     fontFamily: 'vazir'),
               ),
-              SizedBox(
-                height: width * 0.02,
-              ),
+              value.isMainPagePullToRefresh
+                  ? SizedBox(
+                      height: width * 0.03,
+                    )
+                  : SizedBox(),
               value.isMainPagePullToRefresh
                   ? SizedBox(
                       height: width * 0.045,
@@ -46,16 +48,18 @@ class Totals extends StatelessWidget {
                         color: Colors.white,
                       ))
                   : Text(
-                      price,
-                      style: const TextStyle(
+                      Constant.englishToPersianNumbers(price),
+                      style: TextStyle(
                         color: Colors.white,
-                        fontSize: 22,
+                        fontSize: width * 0.07,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
-              SizedBox(
-                height: width * 0.03,
-              ),
+              value.isMainPagePullToRefresh
+                  ? SizedBox(
+                      height: width * 0.049,
+                    )
+                  : SizedBox(),
               icon
             ],
           ),
