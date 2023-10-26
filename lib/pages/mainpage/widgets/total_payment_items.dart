@@ -77,7 +77,7 @@ class TotalsPaymentItems extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       child: Container(
                         padding: const EdgeInsets.all(15),
-                        height: height * 0.5,
+                        height: height * 0.4,
                         width: width * 0.8,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
@@ -93,44 +93,44 @@ class TotalsPaymentItems extends StatelessWidget {
                                   fontWeight: FontWeight.w600,
                                   fontSize: width * 0.045),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  width: width * 0.7,
-                                  child: AutoSizeText(
-                                    'افزوده شده توسط : ${payment.createdBy!.name}',
-                                    maxLines: 5,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                      fontFamily: 'vazir',
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  width: width * 0.7,
-                                  child: AutoSizeText(
-                                    'موضوع : ${payment.title}',
-                                    maxLines: 5,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                      fontFamily: 'vazir',
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.end,
+                            //   children: [
+                            //     SizedBox(
+                            //       width: width * 0.7,
+                            //       child: AutoSizeText(
+                            //         'افزوده شده توسط : ${payment.createdBy!.name}',
+                            //         maxLines: 5,
+                            //         overflow: TextOverflow.ellipsis,
+                            //         textAlign: TextAlign.right,
+                            //         style: const TextStyle(
+                            //           fontFamily: 'vazir',
+                            //           color: Colors.white,
+                            //           fontWeight: FontWeight.w600,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.end,
+                            //   children: [
+                            //     SizedBox(
+                            //       width: width * 0.7,
+                            //       child: AutoSizeText(
+                            //         'موضوع : ${payment.title}',
+                            //         maxLines: 5,
+                            //         overflow: TextOverflow.ellipsis,
+                            //         textAlign: TextAlign.right,
+                            //         style: const TextStyle(
+                            //           fontFamily: 'vazir',
+                            //           color: Colors.white,
+                            //           fontWeight: FontWeight.w600,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -171,13 +171,32 @@ class TotalsPaymentItems extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.end,
+                            //   children: [
+                            //     SizedBox(
+                            //       width: width * 0.7,
+                            //       child: AutoSizeText(
+                            //         'قیمت : ${value.formatAmount(payment.price.toString())} تومان',
+                            //         maxLines: 5,
+                            //         overflow: TextOverflow.ellipsis,
+                            //         textAlign: TextAlign.right,
+                            //         style: const TextStyle(
+                            //           fontFamily: 'vazir',
+                            //           color: Colors.white,
+                            //           fontWeight: FontWeight.w600,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 SizedBox(
                                   width: width * 0.7,
                                   child: AutoSizeText(
-                                    'قیمت : ${value.formatAmount(payment.price.toString())} تومان',
+                                    'افراد سهیم در خرید : $usersShouldPay',
                                     maxLines: 5,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.right,
@@ -196,26 +215,9 @@ class TotalsPaymentItems extends StatelessWidget {
                                 SizedBox(
                                   width: width * 0.7,
                                   child: AutoSizeText(
-                                    'افراد سهیم در خرید : ${usersShouldPay}',
-                                    maxLines: 5,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                      fontFamily: 'vazir',
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  width: width * 0.7,
-                                  child: AutoSizeText(
-                                    'افرادي که پرداخت کرده اند : ${userPaid}',
+                                    payment.description.length <= 1
+                                        ? ': افرادي که پرداخت کرده اند'
+                                        : 'افرادي که پرداخت کرده اند : $userPaid',
                                     maxLines: 5,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.right,
@@ -249,10 +251,7 @@ class TotalsPaymentItems extends StatelessWidget {
                               size: width * 0.07,
                               color: Colors.white,
                             ),
-                            Text(
-                                value.formatAmount((payment.price ~/
-                                        (payment.users.length + 1))
-                                    .toString()),
+                            Text(value.formatAmount((payment.price).toString()),
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: width * 0.06,
