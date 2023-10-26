@@ -39,7 +39,7 @@ class Totals extends StatelessWidget {
                   ? SizedBox(
                       height: width * 0.03,
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
               value.isMainPagePullToRefresh
                   ? SizedBox(
                       height: width * 0.045,
@@ -59,7 +59,7 @@ class Totals extends StatelessWidget {
                   ? SizedBox(
                       height: width * 0.049,
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
               icon
             ],
           ),
