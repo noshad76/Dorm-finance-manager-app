@@ -131,9 +131,11 @@ class _MainPageState extends State<MainPage> {
                               borderRadius:
                                   BorderRadius.circular(width * 0.025),
                               child: SvgPicture.asset(
-                                'assets/icons/notification icon.svg',
-                                height: width * 0.07,
-                                width: width * 0.07,
+                                value.notificationPayemnts.isEmpty
+                                    ? 'assets/icons/notification icon off.svg'
+                                    : 'assets/icons/notification icon.svg',
+                                height: width * 0.08,
+                                width: width * 0.08,
                               )),
                           MainPageMethods.appbar(
                             !value.isMainPageHaseExeption ||

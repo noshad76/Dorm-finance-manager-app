@@ -56,7 +56,9 @@ class _CustomLeftDrawerState extends State<CustomLeftDrawer> {
                         width: widget.width * 0.03,
                       ),
                       SvgPicture.asset(
-                        'assets/icons/notification icon.svg',
+                        value.notificationPayemnts.isEmpty
+                            ? 'assets/icons/notification icon off.svg'
+                            : 'assets/icons/notification icon.svg',
                         height: widget.width * 0.07,
                         width: widget.width * 0.07,
                       )
