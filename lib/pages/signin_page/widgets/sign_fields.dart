@@ -59,6 +59,7 @@ class Formfield extends StatelessWidget {
                   maxLines: 1,
                   style: const TextStyle(color: Colors.white),
                   textAlign: TextAlign.right,
+                  textDirection: TextDirection.ltr,
                   keyboardType:
                       hint == 'رمز عبور' ? TextInputType.visiblePassword : null,
                   obscureText: hint == 'رمز عبور' ? true : false,

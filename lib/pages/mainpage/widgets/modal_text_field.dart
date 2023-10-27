@@ -34,6 +34,7 @@ class ModalTextField extends StatelessWidget {
                 )
               ]),
           child: TextFormField(
+            textDirection: TextDirection.rtl,
             keyboardType: index == 1 ? TextInputType.number : null,
             onChanged: (value) {
               if (index == 0) {
