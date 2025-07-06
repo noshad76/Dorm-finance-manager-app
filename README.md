@@ -10,11 +10,11 @@ This repository contains the source code for a dorm finance management applicati
 
 ## 📸 Screenshots
 
-| Home Page | Debts Page | Net Payments |
+| 1 | 2 | 3 |
 |-----------|------------|--------------|
 | ![Home](https://github.com/user-attachments/assets/13981167-c147-4d29-9305-6f5213ec7baf) | ![Debts](https://github.com/user-attachments/assets/5961d864-5eb1-41b2-b0ec-6a6cc9fe2d09) | ![Net Payment](https://github.com/user-attachments/assets/1718c6aa-2a3b-4d43-816d-1796c8988804) |
 
-| Login Page | Overview Example |
+| 4 | 5 |
 |------------|------------------|
 | ![Login](https://github.com/user-attachments/assets/99ad67c7-c57f-431b-b6b1-c17c8afc5e40) | ![Overview](https://github.com/user-attachments/assets/1c5fe84a-0d1e-4a99-9c60-caaa29066be9) |
 
