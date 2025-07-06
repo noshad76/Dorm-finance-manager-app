@@ -1,7 +1,7 @@
 # Dormnance
 Dormnance is a collaborative dorm finance management app built with Flutter. It helps roommates easily track shared expenses, manage debts, and settle payments transparently.
 
-<div align="center"> <img src="![image](https://github.com/user-attachments/assets/690bec4f-3508-407f-b90c-8022d02777b1)
+<div align="center"> <img src="https://github.com/user-attachments/assets/690bec4f-3508-407f-b90c-8022d02777b1
 " alt="Dormnance Logo" height="100" /> </div
 ## Overview
 
